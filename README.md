@@ -1,2 +1,2 @@
 # SlideCheck
-SlideCheck: Taming Normal Dominance for Data-Efficient Pathology Self-Supervised Pretraining 
+SlideCheck as Prior: Guiding Self-Supervised Pathology Representation Learning with Dataset Distributions
