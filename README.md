@@ -5,7 +5,7 @@
   <img src='https://img.shields.io/badge/GitHub-Code-black?style=flat&logo=github&logoColor=white'></a> 
 </p>
 
-<img src="https://github.com/lingxitong/SlideCheck/blob/main/SlideCheck_Logo.png"  width="290px" align="right" />
+<img src="https://github.com/lingxitong/SlideCheck/blob/main/SlideCheck_Logo.png"  width="390px" align="right" />
 Self-supervised learning (SSL) has shown strong transferability for pathology foundation models, yet most pipelines still sample patches from whole-slide images (WSIs) uniformly at random despite severe redundancy and imbalanced tissue distributions. We propose SlideCheck as a prior, using supervised distribution priors to guide SSL patch selection. We unify multiple large-scale public ROI datasets and map heterogeneous labels into two binary factors: normal vs. abnormal and cancer vs. non-cancer. With ~1M labeled patches, we train and open-source SlideCheck, a lightweight patch classifier that outputs prior scores for candidate patches. These scores can be used to filter and prioritize diagnostically relevant patches before or during SSL pretraining, reducing uninformative tissue redundancy and improving data efficiency without changing the SSL objective. We hope SlideCheck can serve as a practical, reusable tool to facilitate dataset curation and patch sampling for future pathology SSL research.
 SlideCheck as Prior: Guiding Self-Supervised Pathology Representation Learning with Dataset Distributions.
 SlideCheck is a lightweight **dual-head patch classifier** that outputs two signals for each patch feature:
