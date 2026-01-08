@@ -153,7 +153,7 @@ python SlideCheck/Finetune_SlideCheck/SlideCheck_Finetune.py \
   --epochs 200 \
   --batch_size 1000000 \
   --lr 1e-3 \
-  --weight_decay 1e-4
+  --weight_decay 1e-4 \
   --resume_model_ckpt pretrained_slidecheck.pt
 ```
 
