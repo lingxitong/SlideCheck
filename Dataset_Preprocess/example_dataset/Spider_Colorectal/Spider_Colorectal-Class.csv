@@ -1,0 +1,14 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+Adenocarcinoma high grade,0,abnormal,cancer
+Adenocarcinoma low grade,1,abnormal,cancer
+Adenoma high grade,2,abnormal,noncancer
+Adenoma low grade,3,abnormal,noncancer
+Fat,4,normal,noncancer
+Hyperplastic polyp,5,abnormal,noncancer
+Inflammation,6,abnormal,noncancer
+Mucus,7,abnormal,noncancer
+Muscle,8,normal,noncancer
+Necrosis,9,abnormal,noncancer
+Sessile serrated lesion,10,abnormal,noncancer
+Stroma healthy,11,normal,noncancer
+Vessels,12,normal,noncancer

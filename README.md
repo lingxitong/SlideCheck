@@ -1,46 +1,19 @@
-# SlideCheck <p align="center">
-  <a href='https://scholar.google.com/citations?user=5lNlpagAAAAJ&hl=en'>
+# SlideCheck 
+#### SlideCheck as Prior: Guiding Self-Supervised Pathology Representation Learning with Dataset Distributions 
+<p align="center">
+  <a href='https://arxiv.org/abs/2505.21928'>
   <img src='https://img.shields.io/badge/Arxiv-2404.19759-A42C25?style=flat&logo=arXiv&logoColor=A42C25'></a> 
-  <a href='https://github.com/lingxitong/MIL_BASELINE'>
+  <a href='https://huggingface.co/xtxx/SlideCheck'>
+  <img src='https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Spaces-yellow'></a>
+  <a href='https://lingxitong/SlideCheck'>
   <img src='https://img.shields.io/badge/GitHub-Code-black?style=flat&logo=github&logoColor=white'></a> 
 </p>
 
 <img src="https://github.com/lingxitong/SlideCheck/blob/main/SlideCheck_Logo.png"  width="390px" align="right" />
-Self-supervised learning (SSL) has shown strong transferability for pathology foundation models, yet most pipelines still sample patches from whole-slide images (WSIs) uniformly at random despite severe redundancy and imbalanced tissue distributions. We propose SlideCheck as a prior, using supervised distribution priors to guide SSL patch selection. We unify multiple large-scale public ROI datasets and map heterogeneous labels into two binary factors: normal vs. abnormal and cancer vs. non-cancer. With ~1M labeled patches, we train and open-source SlideCheck, a lightweight patch classifier that outputs prior scores for candidate patches. These scores can be used to filter and prioritize diagnostically relevant patches before or during SSL pretraining, reducing uninformative tissue redundancy and improving data efficiency without changing the SSL objective. We hope SlideCheck can serve as a practical, reusable tool to facilitate dataset curation and patch sampling for future pathology SSL research.
-SlideCheck as Prior: Guiding Self-Supervised Pathology Representation Learning with Dataset Distributions.
-SlideCheck is a lightweight **dual-head patch classifier** that outputs two signals for each patch feature:
+Self-supervised learning (SSL) has shown strong transferability for pathology foundation models, yet most pipelines still sample patches from whole-slide images (WSIs) uniformly at random despite severe redundancy and imbalanced tissue distributions. We propose SlideCheck as a prior, using supervised distribution priors to guide SSL patch selection. We unify multiple large-scale public ROI datasets and map heterogeneous labels into two binary factors: normal vs. abnormal and cancer vs. non-cancer. With ~1M labeled patches, we train and open-source SlideCheck, a lightweight patch classifier that outputs prior scores for candidate patches. These scores can be used to filter and prioritize diagnostically relevant patches before or during SSL pretraining, reducing uninformative tissue redundancy and improving data efficiency without changing the SSL objective. We hope SlideCheck can serve as a practical, reusable tool to facilitate dataset curation and patch sampling for future pathology SSL research. SlideCheck is a lightweight Foundation Model Based dual-head patch classifier that outputs two signals for each patch feature:
 
-- **Abnormal vs. Normal** (`logit_abn`)
-- **Cancer vs. Non-cancer** (`logit_can`)
-
-This repository provides a simple **inference script** that reads patch features from an **HDF5** file (Trident Ans) and saves predictions to a **JSON** file.
-
----
-
-## Features
-
-- ✅ Dual-head outputs: abnormal / cancer
-- ✅ Input: HDF5 features (`features` key by default)
-- ✅ Output: JSON (binary predictions + optional probabilities)
-- ✅ Single-pass inference (no batching)
-
----
-
-## Requirements
-
-- Python >= 3.8
-- PyTorch
-- h5py
-
-Install dependencies:
-
-```bash
-pip install torch h5py
-````
-
-> Ensure `SlideCheck_Model.py` exists in this repo and can be imported by the inference script.
-
----
+- **Normal vs. ABNormal** (`logit_abn`)
+- **NonCancer vs. Cancer** (`logit_can`)
 
 ## Repository Structure (Example)
 

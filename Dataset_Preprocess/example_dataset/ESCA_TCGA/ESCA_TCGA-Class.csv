@@ -1,0 +1,12 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+ADVENT,0,normal,noncancer
+SUBMUC,1,normal,noncancer
+REGR_TU,2,abnormal,noncancer
+SUB_GL,3,normal,noncancer
+SH_OES,4,normal,noncancer
+ULCUS,5,abnormal,noncancer
+TUMOR,6,abnormal,cancer
+SH_MAG,7,normal,noncancer
+MUSC_PROP,8,normal,noncancer
+LAM_PROP,9,normal,noncancer
+MUSC_MUC,10,normal,noncancer

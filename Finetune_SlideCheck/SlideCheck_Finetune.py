@@ -15,6 +15,23 @@ from SlideCheck_Model import build_model, list_models, ModelOutput
 # -------------------------
 # Utils
 # -------------------------
+def load_checkpoint_state_dict(ckpt_path: str) -> Dict[str, torch.Tensor]:
+    """
+    Load checkpoint and return the state_dict.
+    Supports:
+      1) {'state_dict': ...}
+      2) raw state_dict
+    """
+    ckpt = torch.load(ckpt_path, map_location="cpu")
+    if isinstance(ckpt, dict) and "state_dict" in ckpt and isinstance(ckpt["state_dict"], dict):
+        return ckpt["state_dict"]
+    if isinstance(ckpt, dict) and all(isinstance(v, torch.Tensor) for v in ckpt.values()):
+        return ckpt  # raw state_dict
+    raise ValueError(
+        "Unrecognized checkpoint format. Expect checkpoint['state_dict'] or a raw state_dict."
+    )
+    
+
 def set_seed(seed: int = 42):
     import random
     import numpy as np
@@ -280,11 +297,12 @@ def mean_bacc_abn_can(val_metrics: Dict[str, Any]) -> float:
 def main():
     ap = argparse.ArgumentParser("Dual-head training + constraint + exp logging")
     ap.add_argument("--pt_path", type=str, required=True)
-    ap.add_argument("--log_root_dir", type=str, default="/mnt/sdb/lxt/SlideCheck/Logs_SlideCheck")
+    ap.add_argument("--log_root_dir", type=str, default="./Logs_SlideCheck")
     ap.add_argument("--exp_name", type=str, default=None)
     ap.add_argument("--device", type=str, default="cuda:0")
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--val_ratio", type=float, default=0.05)
+    ap.add_argument("--resume_model_ckpt", type=str, default='')
 
     ap.add_argument("--model_tag", type=str, default="mlp_v1",
                     help=f"Model tag. Available: {list(list_models().keys())}")
@@ -361,6 +379,16 @@ def main():
     # ---- build model by tag ----
     model_kwargs = dict(hidden_dim=args.hidden_dim, dropout=args.dropout, layers=args.layers)
     model = build_model(args.model_tag, in_dim=in_dim, **model_kwargs).to(args.device)
+    if os.path.exists(args.resume_model_ckpt):
+        try:
+            state_dict = load_checkpoint_state_dict(args.ckpt)
+            missing, unexpected = model.load_state_dict(state_dict, strict=False)
+            if missing:
+                assert f"Missing keys when loading: {missing}"
+            if unexpected:
+                assert f"Unexpected keys when loading: {unexpected}"
+        except:
+            print('Training from the begining.')
 
     # ---- losses ----
     if args.use_pos_weight:
