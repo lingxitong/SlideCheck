@@ -37,7 +37,7 @@ We build a large-scale multi-task patch dataset by unifying multiple public ROI 
 - **normal vs. abnormal**
 - **noncancer vs. cancer**
 
-#### 1) Dataset Collection & Label Mapping
+#### Dataset Collection & Label Mapping
 
 We integrate the public datasets listed below (see the `example_dataset/` directory):
 
@@ -65,7 +65,7 @@ After mapping, the overall label distribution is:
 }
 ```
 
-#### 2) Feature Extraction with Foundation Models
+#### Feature Extraction with Foundation Models
 
 Instead of training on raw images directly, **SlideCheck is trained on patch embeddings** extracted by off-the-shelf pathology foundation models. We currently support three backbones:
 
@@ -78,7 +78,7 @@ Feature extraction is implemented in:
 - `SlideCheck/Dataset_Preprocess/SlideCheck_Dataset_Preprocess.py`
 ---
 
-#### 3) Dual-Head MLP Training
+#### Dual-Head MLP Training
 
 Given extracted features, we train a simple and efficient classifier:
 
@@ -91,7 +91,7 @@ This design makes SlideCheck lightweight, fast to train, and easy to plug into a
 
 ---
 
-#### 4) Internal Validation Performance 
+#### Internal Validation Performance 
 | Backbone | Task | Acc | BAcc | AUC | AUPRC | Sensitivity | Specificity | 
 |---|---|---:|---:|---:|---:|---:|---:|
 | UNI v1 | Abnormal | 0.9921 | 0.9911 | 0.9996 | 0.9999 | 0.9934 | 0.9888 | 
