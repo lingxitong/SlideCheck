@@ -82,7 +82,7 @@ def main() -> None:
 
     # 1) Build model
     hidden_dim = 768
-    dropout = 01.
+    dropout = 0.1
     model = build_model(
         args.model_tag,
         in_dim=args.in_dim,
