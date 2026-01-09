@@ -92,7 +92,7 @@ def main() -> None:
 
     # 2) Load weights
     state_dict = load_checkpoint_state_dict(args.ckpt)
-    missing, unexpected = model.load_state_dict(state_dict, strict=False)
+    missing, unexpected = model.load_state_dict(state_dict, strict=True)
     if missing:
         print(f"[WARN] Missing keys when loading: {missing}")
     if unexpected:
