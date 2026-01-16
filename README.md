@@ -127,6 +127,22 @@ python SlideCheck/Infer_SlideCheck/SlideCheck_Infer.py \
   --device cuda:0
 ```
 
+#### MobileNet Image Input Version
+
+We also provide a MobileNetV3-based version that directly takes images as input (no feature extraction required):
+
+- `SlideCheck/Infer_SlideCheck/SlideCheck_Infer_MobileNet.py`
+
+It loads images from a CSV file (with `image_path` column) and outputs predictions in the same JSON format.
+
+```bash
+python SlideCheck/Infer_SlideCheck/SlideCheck_Infer_MobileNet.py \
+  --image_csv /path/to/images.csv \
+  --ckpt /path/to/mobilenet_checkpoint.pt \
+  --out_json /path/to/out.json \
+  --device cuda:0
+```
+
 ### :jack_o_lantern: Finetune Pipeline
 
 Due to **domain generalization** issues in histopathology (scanner/stain/site shifts), we recommend performing **lightweight continual learning / few-epoch finetuning** on your private dataset before using SlideCheck for large-scale scoring or sampling.
@@ -155,6 +171,26 @@ python SlideCheck/Finetune_SlideCheck/SlideCheck_Finetune.py \
   --lr 1e-3 \
   --weight_decay 1e-4 \
   --resume_model_ckpt pretrained_slidecheck.pt
+```
+
+#### MobileNet Image Input Version
+
+For end-to-end training on raw images, use the MobileNetV3 version:
+
+- `SlideCheck/Finetune_SlideCheck/SlideCheck_Finetune_MobileNet.py`
+
+It trains directly on images from a CSV file (with `image_path`, `label_abn`, `label_can` columns), without requiring feature extraction.
+
+```bash
+python SlideCheck/Finetune_SlideCheck/SlideCheck_Finetune_MobileNet.py \
+  --image_csv /path/to/train_images.csv \
+  --log_root_dir ./Logs_SlideCheck \
+  --exp_name mobilenet_finetune \
+  --device cuda:0 \
+  --model_tag mobilenetv3 \
+  --epochs 200 \
+  --batch_size 32 \
+  --lr 1e-3
 ```
 
 

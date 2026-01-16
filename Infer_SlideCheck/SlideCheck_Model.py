@@ -149,3 +149,79 @@ class DualHeadMLP_Deep(BaseDualHeadModel):
             logit_abn=self.head_abn(h).squeeze(-1),
             logit_can=self.head_can(h).squeeze(-1),
         )
+
+
+@register_model("mobilenetv3")
+class MobileNetV3DualHead(BaseDualHeadModel):
+    """Use timm MobileNetV3 as backbone + mlp_v1 structure as classification head"""
+    def __init__(self, in_dim: int = None, hidden_dim: int = 512, dropout: float = 0.1, 
+                 pretrained: bool = True, freeze_backbone: bool = False):
+        """
+        Args:
+            in_dim: For image input, this parameter will be ignored (kept for interface compatibility)
+            hidden_dim: Hidden dimension of mlp_v1 classification head
+            dropout: Dropout rate
+            pretrained: Whether to use pretrained weights
+            freeze_backbone: Whether to freeze backbone (only train classification head)
+        """
+        # Temporarily set in_dim, will be updated based on actual backbone output dimension
+        super().__init__(in_dim=1280)
+        
+        try:
+            import timm
+        except ImportError:
+            raise ImportError("timm library is required: pip install timm")
+        
+        # Create MobileNetV3 backbone, num_classes=0 means output features only
+        self.backbone = timm.create_model(
+            model_name='mobilenetv3_large_100',
+            pretrained=pretrained,
+            num_classes=0  # Output embedding instead of classification results
+        )
+        
+        # Get actual output dimension of backbone
+        with torch.no_grad():
+            dummy_input = torch.randn(1, 3, 224, 224)
+            dummy_output = self.backbone(dummy_input)
+            backbone_dim = dummy_output.shape[1]
+        
+        self.in_dim = backbone_dim
+        
+        # If freeze backbone, only train classification head
+        if freeze_backbone:
+            for param in self.backbone.parameters():
+                param.requires_grad = False
+        
+        # Use mlp_v1 structure as classification head: LayerNorm -> Linear -> GELU -> Dropout -> Linear -> GELU -> Dropout
+        self.mlp_head = nn.Sequential(
+            nn.LayerNorm(backbone_dim),
+            nn.Linear(backbone_dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, hidden_dim),
+            nn.GELU(),
+            nn.Dropout(dropout),
+        )
+        
+        # Two classification heads: from mlp_head output to final classification results
+        self.head_abn = nn.Linear(hidden_dim, 1)
+        self.head_can = nn.Linear(hidden_dim, 1)
+    
+    def forward(self, x: torch.Tensor) -> ModelOutput:
+        """
+        Args:
+            x: Input image tensor, shape [B, 3, 224, 224]
+        Returns:
+            ModelOutput: Contains logit_abn and logit_can
+        """
+        # Extract features
+        features = self.backbone(x)  # [B, backbone_dim]
+        
+        # Through mlp_v1 structure classification head
+        h = self.mlp_head(features)  # [B, hidden_dim]
+        
+        # Two classification heads
+        logit_abn = self.head_abn(h).squeeze(-1)  # [B]
+        logit_can = self.head_can(h).squeeze(-1)  # [B]
+        
+        return ModelOutput(logit_abn=logit_abn, logit_can=logit_can)
