@@ -229,7 +229,7 @@ class ImageDataset(Dataset):
         self.y_abn = y_abn[indices].float()
         self.y_can = y_can[indices].float()
         
-        # 默认transform：resize到224x224，归一化
+        # Default transform: resize to 224x224 and normalize
         if transform is None:
             self.transform = transforms.Compose([
                 transforms.Resize((224, 224)),
@@ -297,7 +297,7 @@ def evaluate(model, loader, device: str) -> Dict[str, Dict[str, float]]:
 
 
 def mean_bacc_abn_can(val_metrics: Dict[str, Any]) -> float:
-    """best / early-stop 指标：两个任务 bacc 的均值"""
+    """Best / early-stop metric: mean of bacc from two tasks"""
     bacc_abn = float(val_metrics["abnormal"]["bacc"])
     bacc_can = float(val_metrics["cancer"]["bacc"])
     if math_isnan(bacc_abn) or math_isnan(bacc_can):
@@ -367,27 +367,27 @@ def main():
     save_json(hparams, os.path.join(exp_dir, "hparams.json"))
 
     # ---- load data ----
-    # 从CSV加载图像路径和标签
+    # Load image paths and labels from CSV
     df = pd.read_csv(args.image_csv_path)
     
-    # 检查必需的列
+    # Check required columns
     required_cols = ["image_path", "normal_abnormal_label", "cancer_noncancer_label"]
     missing_cols = [col for col in required_cols if col not in df.columns]
     if missing_cols:
-        raise ValueError(f"CSV文件缺少必需的列: {missing_cols}")
+        raise ValueError(f"CSV file missing required columns: {missing_cols}")
     
-    # 读取数据
+    # Read data
     image_paths = df["image_path"].dropna().tolist()
     y_abn_raw = df["normal_abnormal_label"].dropna().tolist()
     y_can_raw = df["cancer_noncancer_label"].dropna().tolist()
     
-    # 确保所有列表长度一致
+    # Ensure all lists have the same length
     min_len = min(len(image_paths), len(y_abn_raw), len(y_can_raw))
     image_paths = image_paths[:min_len]
     y_abn_raw = y_abn_raw[:min_len]
     y_can_raw = y_can_raw[:min_len]
     
-    # 转换标签为数值（支持字符串和数值）
+    # Convert labels to numeric values (supports both string and numeric)
     def normalize_label(val, label_type="abnormal"):
         if isinstance(val, (int, float)):
             return int(val)
@@ -401,19 +401,19 @@ def main():
         try:
             return int(float(val_str))
         except:
-            raise ValueError(f"无法解析标签值: {val} (类型: {label_type})")
+            raise ValueError(f"Unable to parse label value: {val} (type: {label_type})")
     
     y_abn = torch.tensor([normalize_label(v, "abnormal") for v in y_abn_raw], dtype=torch.long)
     y_can = torch.tensor([normalize_label(v, "cancer") for v in y_can_raw], dtype=torch.long)
     
-    # 验证标签一致性
+    # Validate label consistency
     bad = ((y_can == 1) & (y_abn == 0)).sum().item()
     if bad > 0:
         raise ValueError(f"Found {bad} samples with cancer=1 but abnormal=0 (violates cancer=>abnormal).")
     
     train_idx, val_idx = stratified_split_indices(y_abn, y_can, args.val_ratio, args.seed)
     
-    # 图像数据增强（训练时）
+    # Image data augmentation (for training)
     train_transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.RandomHorizontalFlip(p=0.5),
@@ -422,7 +422,7 @@ def main():
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
     
-    # 验证时只resize和归一化
+    # For validation: only resize and normalize
     val_transform = transforms.Compose([
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
@@ -510,15 +510,15 @@ def main():
 
         for batch in dl_train:
             Xb, y_abn_b, y_can_b = batch[0], batch[1], batch[2]
-            # Xb: [B, 3, 224, 224] - 图像数据
+            # Xb: [B, 3, 224, 224] - image data
             Xb = Xb.to(args.device, non_blocking=True)
             y_abn_b = y_abn_b.to(args.device, non_blocking=True)
             y_can_b = y_can_b.to(args.device, non_blocking=True)
 
-            # 前向传播：
-            # 1. MobileNetV3 backbone: [B, 3, 224, 224] -> [B, backbone_dim] (例如1280)
+            # Forward pass:
+            # 1. MobileNetV3 backbone: [B, 3, 224, 224] -> [B, backbone_dim] (e.g., 1280)
             # 2. mlp_v1 head: [B, backbone_dim] -> [B, hidden_dim]
-            # 3. 分类头: [B, hidden_dim] -> [B] (logit_abn, logit_can)
+            # 3. Classification heads: [B, hidden_dim] -> [B] (logit_abn, logit_can)
             out: ModelOutput = model(Xb)
 
             loss1 = bce_abn(out.logit_abn, y_abn_b)
@@ -591,13 +591,13 @@ def main():
                 best_path,
             )
 
-            # NEW: best.json（你要的"详细指标+epoch"）
+            # NEW: best.json (detailed metrics + epoch)
             best_json = {
                 "best_epoch": best_epoch,
                 "best_key_name": "mean_bacc_abn_can",
                 "best_key": best_key,
                 "train_loss_at_best": float(train_loss),
-                "val": val_metrics,                 # abnormal/cancer/constraint 全部详细指标
+                "val": val_metrics,                 # All detailed metrics for abnormal/cancer/constraint
                 "model_tag": args.model_tag,
                 "model_kwargs": model_kwargs,
                 "in_dim": int(in_dim),
@@ -617,7 +617,7 @@ def main():
             bad_epochs += 1
 
         # ---------- early stopping ----------
-        # warmup 期间不早停
+        # Do not early stop during warmup period
         if epoch >= args.early_stop_warmup:
             if args.early_stop_patience > 0 and bad_epochs >= args.early_stop_patience:
                 print(
