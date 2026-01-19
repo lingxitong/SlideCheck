@@ -93,16 +93,16 @@ This design makes SlideCheck lightweight, fast to train, and easy to plug into a
 
 #### Internal Validation Performance 
 
-| Backbone | Task | Acc | BAcc | AUC | AUPRC | Sensitivity | Specificity | 
-|---|---|---:|---:|---:|---:|---:|---:|
-| UNI v1 | Abnormal | 0.9921 | 0.9911 | 0.9996 | 0.9999 | 0.9934 | 0.9888 | 
-| UNI v1 | Cancer | 0.9928 | 0.9928 | 0.9997 | 0.9997 | 0.9918 | 0.9938 | 
-| GigaPath | Abnormal | 0.9918 | 0.9910 | 0.9996 | 0.9998 | 0.9929 | 0.9890 | 
-| GigaPath | Cancer | 0.9929 | 0.9929 | 0.9997 | 0.9997 | 0.9920 | 0.9938 | 
-| Virchow2 | Abnormal | 0.9933 | 0.9926 | 0.9997 | 0.9999 | 0.9943 | 0.9909 | 
-| Virchow2 | Cancer | 0.9935 | 0.9935 | 0.9998 | 0.9998 | 0.9940 | 0.9930 | 
-| MobileNetV3 | Abnormal | 0.9898 | 0.9877 | 0.9993 | 0.9997 | 0.9927 | 0.9827 | 
-| MobileNetV3 | Cancer | 0.9908 | 0.9908 | 0.9995 | 0.9995 | 0.9901 | 0.9915 |
+| Backbone | Param | Task | Acc | BAcc | AUC | AUPRC | Sensitivity | Specificity | 
+|---|---|---|---:|---:|---:|---:|---:|---:|
+| UNI v1 | 304.33M | Abnormal | 0.9921 | 0.9911 | 0.9996 | 0.9999 | 0.9934 | 0.9888 | 
+| UNI v1 | 304.33M | Cancer | 0.9928 | 0.9928 | 0.9997 | 0.9997 | 0.9918 | 0.9938 | 
+| GigaPath | 1136.48M | Abnormal | 0.9918 | 0.9910 | 0.9996 | 0.9998 | 0.9929 | 0.9890 | 
+| GigaPath | 1136.48M | Cancer | 0.9929 | 0.9929 | 0.9997 | 0.9997 | 0.9920 | 0.9938 | 
+| Virchow2 | 630.76M | Abnormal | 0.9933 | 0.9926 | 0.9997 | 0.9999 | 0.9943 | 0.9909 | 
+| Virchow2 | 630.76M | Cancer | 0.9935 | 0.9935 | 0.9998 | 0.9998 | 0.9940 | 0.9930 | 
+| MobileNetV3 | 4.2M | Abnormal | 0.9898 | 0.9877 | 0.9993 | 0.9997 | 0.9927 | 0.9827 | 
+| MobileNetV3 | 4.2M | Cancer | 0.9908 | 0.9908 | 0.9995 | 0.9995 | 0.9901 | 0.9915 |
 
 **Notes:**  
 - *Abnormal* refers to **normal vs. abnormal** head.  
