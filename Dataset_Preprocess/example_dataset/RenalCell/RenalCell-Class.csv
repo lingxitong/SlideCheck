@@ -1,0 +1,7 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+blood,0,normal,noncancer
+cancer,1,abnormal,cancer
+empty,2,normal,noncancer
+normal,3,normal,noncancer
+other,4,normal,noncancer
+stroma,5,normal,noncancer

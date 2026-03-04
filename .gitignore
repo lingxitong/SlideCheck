@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# OS
+.DS_Store
+Thumbs.db
+*.dbstore
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# Model checkpoints & logs (large files)
+*.pt
+*.pth
+*.ckpt
+logs/
+
+# Data
+*.h5
+*.hdf5
+
+# Misc
+*.bak
+*.tmp

@@ -1,0 +1,56 @@
+# Co-Evolution Training - V6c Route
+#
+# V6 features:
+# - V3c confidence weighting
+# - Stratified sampling (balance_mode=sqrt)
+# - Can train from scratch or finetune
+#
+# Expected results: Mean BACC ~0.81
+
+experiment_name: "coevolution_v6c_scratch"
+route: "v6"
+mode: "scratch"  # Train from scratch
+
+# Foundation Model
+foundation_model: "virchow2"
+
+# Data paths (MODIFY THESE)
+data:
+  pseudo_labels: "/path/to/pseudo_labels.pt"
+  test_ratio: 0.1
+
+# Model
+model:
+  arch: "baseline"
+  hidden_dim: 768
+  dropout: 0.1
+
+# Training hyperparameters
+training:
+  epochs: 10  # More epochs for from-scratch training
+  batch_size: 2048
+  lr: 1.0e-3  # Higher LR for from-scratch
+  weight_decay: 1.0e-4
+  lambda_constraint: 1.0
+  seed: 2024
+
+# V6 specific settings
+v6:
+  balance_mode: "sqrt"  # Stratified sampling balance mode
+  no_stratified: false  # Use stratified sampling
+
+# Output
+output:
+  log_dir: "./logs/coevolution"
+
+# Expected metrics
+expected_metrics:
+  mean_bacc: 0.8100
+  cancer_auc: 0.9300
+  abnormal_auc: 0.8900
+
+# Notes:
+# - V6 route uses stratified sampling for balanced training
+# - balance_mode='sqrt' provides good balance between classes
+# - Can also finetune by setting mode='ft' and providing slidecheck_ckpt
+# - From-scratch training requires more epochs (~10) and higher LR (1e-3)

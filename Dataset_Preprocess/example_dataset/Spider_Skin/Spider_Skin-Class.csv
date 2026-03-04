@@ -1,0 +1,25 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+Actinic keratosis,0,abnormal,noncancer
+Apocrine glands,1,normal,noncancer
+Basal cell carcinoma,2,abnormal,cancer
+Carcinoma in situ,3,abnormal,cancer
+Collagen,4,normal,noncancer
+Epidermis,5,normal,noncancer
+Fat,6,normal,noncancer
+Follicle,7,normal,noncancer
+Inflammation,8,abnormal,noncancer
+Invasive melanoma,9,abnormal,cancer
+Kaposi’s sarcoma,10,abnormal,cancer
+Keratin,11,normal,noncancer
+Melanoma in situ,12,abnormal,cancer
+Mercel cell carcinoma,13,abnormal,cancer
+Muscle,14,normal,noncancer
+Necrosis,15,abnormal,noncancer
+Nerves,16,normal,noncancer
+Nevus,17,abnormal,noncancer
+Sebaceous gland,18,normal,noncancer
+Seborrheic keratosis,19,abnormal,noncancer
+Solar elastosis,20,normal,noncancer
+Squamous cell carcinoma,21,abnormal,cancer
+Vessels,22,normal,noncancer
+Wart,23,abnormal,noncancer

@@ -1,0 +1,15 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+Alveoli,0,normal,noncancer
+Bronchial cartilage,1,normal,noncancer
+Bronchial glands,2,normal,noncancer
+Chronic inflammation + fibrosis,3,abnormal,noncancer
+Detritus,4,abnormal,noncancer
+Fibrosis,5,abnormal,noncancer
+Hemorrhage,6,abnormal,noncancer
+Lymph node,7,normal,noncancer
+Pigment,8,abnormal,noncancer
+Pleura,9,normal,noncancer
+Tumor non-small cell,10,abnormal,cancer
+Tumor small cell,11,abnormal,cancer
+Tumor soft,12,abnormal,cancer
+Vessel,13,normal,noncancer

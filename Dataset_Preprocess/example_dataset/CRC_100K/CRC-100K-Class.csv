@@ -1,0 +1,10 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+NORM,0,normal,noncancer
+STR,1,abnormal,cancer
+TUM,2,abnormal,cancer
+MUS,3,normal,noncancer
+MUC,4,normal,noncancer
+LYM,5,abnormal,noncancer
+DEB,6,abnormal,noncancer
+BACK,7,abnormal,noncancer
+ADI,8,normal,noncancer

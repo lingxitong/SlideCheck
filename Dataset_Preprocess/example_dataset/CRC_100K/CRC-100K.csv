@@ -1,0 +1,4 @@
+img_path,img_label
+/path/to/ROI-Dataset/NCT-CRC-HE-100K/ADI/ADI-AAAMHQMK.tif,8.0
+/path/to/ROI-Dataset/NCT-CRC-HE-100K/ADI/ADI-AACCGLYD.tif,8.0
+/path/to/ROI-Dataset/NCT-CRC-HE-100K/ADI/ADI-AACVGRFT.tif,8.0

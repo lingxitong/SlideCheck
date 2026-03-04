@@ -1,0 +1,55 @@
+# Phase 1 Training - Mixup + Feature Perturbation (Best Configuration)
+#
+# This is the best performing configuration from the normalization experiments.
+# Expected results: Cancer AUC ~0.93, Abnormal AUC ~0.90
+
+experiment_name: "phase1_mixup_fp_best"
+variant: "mixup_fp"
+
+# Foundation Model
+foundation_model: "virchow2"  # 2560d features
+
+# Data paths (MODIFY THESE)
+data:
+  feat_dir: "/path/to/features_virchow2/"
+  test_ratio: 0.1
+
+# Model architecture
+model:
+  arch: "baseline"  # Auto-determined from variant
+  hidden_dim: 768
+  dropout: 0.1
+
+# Training hyperparameters
+training:
+  epochs: 200
+  batch_size: 2048
+  lr: 0.001
+  weight_decay: 0.0001
+  lambda_constraint: 1.0
+  early_stop_patience: 30
+  seed: 2024
+
+# Augmentation (for mixup_fp variant)
+augmentation:
+  mixup_alpha: 0.4
+  perturb_sigma: 0.1
+
+# Output
+output:
+  log_dir: "./logs/phase1"
+  # exp_name will be auto-generated if not specified
+
+# Expected metrics (for validation)
+expected_metrics:
+  cancer_auc: 0.9346
+  cancer_bacc: 0.8676
+  abnormal_auc: 0.9012
+  abnormal_bacc: 0.8212
+  mean_bacc: 0.8444
+
+# Notes:
+# - This configuration reproduces the best Phase 1 model from the normalization experiments
+# - Training data: 859,379 samples from 8 datasets (Version A)
+# - Best checkpoint typically around epoch 80-90
+# - Final model may have slightly lower performance than best

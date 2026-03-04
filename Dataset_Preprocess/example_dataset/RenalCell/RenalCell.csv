@@ -1,0 +1,4 @@
+img_path,img_label
+/path/to/ROI-Dataset/RenalCell/tissue_classfication/empty/TCGA-B0-4696_24791_25902_empty_4245.png,2
+/path/to/ROI-Dataset/RenalCell/tissue_classfication/empty/TCGA-DV-5575_41031_170_empty_6566.png,2
+/path/to/ROI-Dataset/RenalCell/tissue_classfication/empty/TCGA-A3-3329_33439_56652_empty_5311.png,2

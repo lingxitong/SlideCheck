@@ -1,0 +1,59 @@
+# Co-Evolution Training - V4a Route (Best Configuration)
+#
+# V4a features:
+# - Finetune from Phase 1 model
+# - Type 2 cancer weight = 0 (ignore Type 2: abnormal=1, cancer=1)
+# - V3c confidence weighting
+# - Negative bag enhancement
+#
+# Expected results: Mean BACC ~0.82 (best overall)
+
+experiment_name: "coevolution_v4a_ft"
+route: "v4a"
+mode: "ft"  # Finetune from Phase 1
+
+# Foundation Model
+foundation_model: "virchow2"
+
+# Data paths (MODIFY THESE)
+data:
+  pseudo_labels: "/path/to/pseudo_labels.pt"
+  test_ratio: 0.1
+
+# Model (will load from slidecheck_ckpt)
+model:
+  slidecheck_ckpt: "/path/to/phase1_best_model.pt"
+  arch: "baseline"  # From checkpoint
+  hidden_dim: 768   # From checkpoint
+  dropout: 0.1      # From checkpoint
+
+# Training hyperparameters
+training:
+  epochs: 5
+  batch_size: 2048
+  lr: 1.0e-5  # Low LR for finetuning
+  weight_decay: 1.0e-4
+  lambda_constraint: 1.0
+  seed: 2024
+
+# V4a specific settings
+v4a:
+  type2_cancer_weight: 0.0  # Ignore Type 2 cancer samples
+  use_v3c_weighting: true   # Use confidence weighting
+
+# Output
+output:
+  log_dir: "./logs/coevolution"
+
+# Expected metrics (for validation)
+expected_metrics:
+  mean_bacc: 0.8180  # best overall
+  cancer_auc: 0.9346
+  abnormal_auc: 0.9012
+
+# Notes:
+# - V4a route achieved best overall performance in experiments
+# - Type 2 cancer weight = 0 is critical for performance
+# - V3c confidence weighting improves stability
+# - Finetune mode with low LR (1e-5) works best
+# - Training converges in ~5 epochs

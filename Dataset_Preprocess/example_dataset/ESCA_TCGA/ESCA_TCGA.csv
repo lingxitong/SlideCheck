@@ -1,0 +1,4 @@
+img_path,img_label
+/path/to/ROI-Dataset/ESCA-ROI/VALSET3_TCGA/MUSC_MUC/musc_muc.371.jpg,10.0
+/path/to/ROI-Dataset/ESCA-ROI/VALSET3_TCGA/ADVENT/advent.2026.jpg,0.0
+/path/to/ROI-Dataset/ESCA-ROI/VALSET3_TCGA/ADVENT/advent.764.jpg,0.0

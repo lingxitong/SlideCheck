@@ -1,0 +1,72 @@
+{
+  "CRC_100K": {
+    "normal_num": 45308,
+    "abnormal_num": 61872,
+    "cancer_num": 26417,
+    "non_cancer_num": 80763,
+    "dataset_csv": "CRC_100K/CRC-100K.csv",
+    "map_csv": "CRC_100K/CRC-100K-Class.csv"
+  },
+  "ESCA_TCGA": {
+    "normal_num": 21370,
+    "abnormal_num": 11426,
+    "cancer_num": 11221,
+    "non_cancer_num": 21575,
+    "dataset_csv": "ESCA_TCGA/ESCA_TCGA.csv",
+    "map_csv": "ESCA_TCGA/ESCA_TCGA-Class.csv"
+  },
+  "RenalCell": {
+    "normal_num": 27703,
+    "abnormal_num": 11755,
+    "cancer_num": 11755,
+    "non_cancer_num": 27703,
+    "dataset_csv": "RenalCell/RenalCell.csv",
+    "map_csv": "RenalCell/RenalCell-Class.csv"
+  },
+  "Spider_Breast": {
+    "normal_num": 22467,
+    "abnormal_num": 70425,
+    "cancer_num": 27164,
+    "non_cancer_num": 65728,
+    "dataset_csv": "Spider_Breast/Spider_Breast.csv",
+    "map_csv": "Spider_Breast/Spider_Breast-Class.csv"
+  },
+  "Spider_Colorectal": {
+    "normal_num": 26030,
+    "abnormal_num": 51152,
+    "cancer_num": 12365,
+    "non_cancer_num": 64817,
+    "dataset_csv": "Spider_Colorectal/Spider_Colorectal.csv",
+    "map_csv": "Spider_Colorectal/Spider_Colorectal-Class.csv"
+  },
+  "Spider_Skin": {
+    "normal_num": 74447,
+    "abnormal_num": 85407,
+    "cancer_num": 42367,
+    "non_cancer_num": 117487,
+    "dataset_csv": "Spider_Skin/Spider_Skin.csv",
+    "map_csv": "Spider_Skin/Spider_Skin-Class.csv"
+  },
+  "Spider_Thorax": {
+    "normal_num": 32773,
+    "abnormal_num": 45534,
+    "cancer_num": 17400,
+    "non_cancer_num": 60907,
+    "dataset_csv": "Spider_Thorax/Spider_Thorax.csv",
+    "map_csv": "Spider_Thorax/Spider_Thorax-Class.csv"
+  },
+  "TCGA_Uniform": {
+    "normal_num": 0,
+    "abnormal_num": 271710,
+    "cancer_num": 271710,
+    "non_cancer_num": 0,
+    "dataset_csv": "TCGA_Uniform/TCGA_Uniform.csv",
+    "map_csv": "TCGA_Uniform/TCGA_Uniform-Class.csv"
+  },
+  "ALL_Dataset": {
+    "normal_num": 250098,
+    "abnormal_num": 609281,
+    "cancer_num": 420399,
+    "non_cancer_num": 438980
+  }
+}

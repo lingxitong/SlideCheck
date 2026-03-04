@@ -1,0 +1,19 @@
+cls_name,cls_id,normal_abnormal,cancer_noncancer
+Adenosis,0,abnormal,noncancer
+Benign phyllodes tumor,1,abnormal,noncancer
+Ductal carcinoma in situ (high-grade),2,abnormal,cancer
+Ductal carcinoma in situ (low-grade),3,abnormal,cancer
+Fat,4,normal,noncancer
+Fibroadenoma,5,abnormal,noncancer
+Fibrocystic changes,6,abnormal,noncancer
+Fibrosis,7,abnormal,noncancer
+Invasive non-special type carcinoma,8,abnormal,cancer
+Lipogranuloma,9,abnormal,noncancer
+Lobular invasive carcinoma,10,abnormal,cancer
+Malignant phyllodes tumor,11,abnormal,cancer
+Necrosis,12,abnormal,noncancer
+Normal ducts,13,normal,noncancer
+Normal lobules,14,normal,noncancer
+Sclerosing adenosis,15,abnormal,noncancer
+Typical ductal hyperplasia,16,abnormal,noncancer
+Vessels,17,normal,noncancer

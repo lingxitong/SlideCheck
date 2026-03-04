@@ -1,0 +1,47 @@
+# Phase 1 Training - Baseline + Mixup (Second Best)
+#
+# Second best configuration with simpler augmentation.
+# Expected results: Cancer AUC ~0.93, Abnormal AUC ~0.90
+
+experiment_name: "phase1_mixup"
+variant: "mixup"
+
+# Foundation Model
+foundation_model: "virchow2"
+
+# Data paths (MODIFY THESE)
+data:
+  feat_dir: "/path/to/features_virchow2/"
+  test_ratio: 0.1
+
+# Model architecture
+model:
+  arch: "baseline"
+  hidden_dim: 768
+  dropout: 0.1
+
+# Training hyperparameters
+training:
+  epochs: 200
+  batch_size: 2048
+  lr: 0.001
+  weight_decay: 0.0001
+  lambda_constraint: 1.0
+  early_stop_patience: 30
+  seed: 2024
+
+# Augmentation
+augmentation:
+  mixup_alpha: 0.4
+
+# Output
+output:
+  log_dir: "./logs/phase1"
+
+# Expected metrics
+expected_metrics:
+  cancer_auc: 0.9297
+  cancer_bacc: 0.8568
+  abnormal_auc: 0.9022
+  abnormal_bacc: 0.8343
+  mean_bacc: 0.8456

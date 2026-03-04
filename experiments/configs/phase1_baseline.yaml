@@ -1,0 +1,43 @@
+# Phase 1 Training - Pure Baseline (No Augmentation)
+#
+# Baseline configuration without any augmentation.
+# Useful for comparison and ablation studies.
+
+experiment_name: "phase1_baseline"
+variant: "baseline"
+
+# Foundation Model
+foundation_model: "virchow2"
+
+# Data paths (MODIFY THESE)
+data:
+  feat_dir: "/path/to/features_virchow2/"
+  test_ratio: 0.1
+
+# Model architecture
+model:
+  arch: "baseline"
+  hidden_dim: 768
+  dropout: 0.1
+
+# Training hyperparameters
+training:
+  epochs: 200
+  batch_size: 2048
+  lr: 0.001
+  weight_decay: 0.0001
+  lambda_constraint: 1.0
+  early_stop_patience: 30
+  seed: 2024
+
+# Output
+output:
+  log_dir: "./logs/phase1"
+
+# Expected metrics
+expected_metrics:
+  cancer_auc: 0.9028
+  cancer_bacc: 0.8400
+  abnormal_auc: 0.7394
+  abnormal_bacc: 0.6800
+  mean_bacc: 0.7600

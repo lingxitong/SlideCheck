@@ -1,0 +1,4 @@
+img_path,img_label
+/path/to/ROI-Dataset/TCGA_Uniform/tcga-ut/dataset/TCGA-A3-3322-01Z-00-DX1/0_3_507.jpg,11
+/path/to/ROI-Dataset/TCGA_Uniform/tcga-ut/dataset/TCGA-A3-3322-01Z-00-DX1/2_4_507.jpg,11
+/path/to/ROI-Dataset/TCGA_Uniform/tcga-ut/dataset/TCGA-A3-3322-01Z-00-DX1/1_0_507.jpg,11
