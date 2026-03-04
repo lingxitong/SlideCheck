@@ -19,6 +19,11 @@ import argparse, json, logging, os, random, sys
 from pathlib import Path
 
 import numpy as np
+# Compatibility shim: files saved with numpy 2.x use numpy._core
+if not hasattr(np, '_core'):
+    np._core = np.core
+    sys.modules['numpy._core'] = np.core
+    sys.modules['numpy._core.multiarray'] = np.core.multiarray
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

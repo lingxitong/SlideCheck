@@ -43,6 +43,12 @@ from tqdm import tqdm
 import numpy as np
 import sys
 
+# Compatibility shim: files saved with numpy 2.x use numpy._core
+if not hasattr(np, '_core'):
+    np._core = np.core
+    sys.modules['numpy._core'] = np.core
+    sys.modules['numpy._core.multiarray'] = np.core.multiarray
+
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from slidecheck.models import build_slidecheck_model
